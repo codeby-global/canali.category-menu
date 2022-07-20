@@ -20,7 +20,7 @@ const SideBarItem = ({
   const [open, setOpen] = useState(false)
 
   const subCategoriesVisible =
-    showSubcategories && children && children.length > 0
+    showSubcategories && children && children.length > 0 && treeLevel <= 1
 
   const navigateToPage = () => {
     const [department, category, subcategory] = linkValues
@@ -88,18 +88,22 @@ const SideBarItem = ({
               {txt => <span className="pl4">{txt}</span>}
             </FormattedMessage>
           </li>
-          {children.map(child => (
-            <li key={child.id} className="list ma0 pa0">
-              <SideBarItem
-                showSubcategories={showSubcategories}
-                item={child}
-                linkValues={[...linkValues, child.slug]}
-                onClose={onClose}
-                treeLevel={treeLevel + 1}
-                runtime={runtime}
-              />
-            </li>
-          ))}
+          {children.map(child => {
+            console.log("child: ", child, treeLevel)
+            if(treeLevel > 1) return
+            return (
+              <li key={child.id} className="list ma0 pa0">
+                <SideBarItem
+                  showSubcategories={showSubcategories}
+                  item={child}
+                  linkValues={[...linkValues, child.slug]}
+                  onClose={onClose}
+                  treeLevel={treeLevel + 1}
+                  runtime={runtime}
+                />
+              </li>
+            )
+          })}
         </>
       )}
     </ul>

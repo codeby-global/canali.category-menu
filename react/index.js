@@ -10,6 +10,7 @@ import { Container } from 'vtex.store-components'
 
 import CategoryItem from './components/CategoryItem'
 import SideBar from './components/SideBar'
+import SideBarItem from './components/SideBarItem'
 import { categoryPropType } from './propTypes'
 import getCategories from './queries/categoriesQuery.gql'
 
@@ -91,39 +92,18 @@ const CategoryMenu = ({
       <Container
         className={`${styles['section--department']} justify-center flex`}
       >
-        <ul
-          className={`${styles.departmentList} pa0 list ma0 flex flex-wrap flex-row t-action overflow-hidden h3`}
-        >
-          {showAllDepartments && (
-            <CategoryItem
-              noRedirect
-              menuPosition={menuPosition}
-              subcategoryLevels={
-                DEFAULT_SUBCATEGORIES_LEVELS + showSubcategories
-              }
-              sortSubcategories={sortSubcategories}
-              category={{
-                children: categories,
-                name: intl.formatMessage({
-                  id: 'store/category-menu.departments.title',
-                }),
-              }}
-            />
-          )}
-          {visibleDepartments.map(category => (
-            <Fragment key={category.id}>
-              <CategoryItem
-                menuPosition={menuPosition}
-                category={category}
-                subcategoryLevels={
-                  DEFAULT_SUBCATEGORIES_LEVELS + showSubcategories
-                }
-                isCategorySelected={department === category.slug}
-                sortSubcategories={sortSubcategories}
-              />
-            </Fragment>
-          ))}
-        </ul>
+        <ul className={`${styles.sidebarContent} pb7 list ma0 pa0`}>
+            {visibleDepartments.map(department => (
+              <li key={department.id} className="list ma0 pa0">
+                <SideBarItem
+                  item={department}
+                  linkValues={[department.slug]}
+                  onClose={() => console.log("Unecessary")}
+                  showSubcategories={showSubcategories}
+                />
+              </li>
+            ))}
+          </ul>
       </Container>
     </nav>
   )
