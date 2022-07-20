@@ -72,6 +72,11 @@ const SideBarItem = ({
     'c-on-base': treeLevel === 1,
   })
 
+  const itemViewAllClasses = classNames(
+    styles.itemViewAll,
+    'pa5 pointer t-body c-muted-2 ma0 list'
+  )
+
   return (
     <ul className={sideBarItemClasses}>
       <li className={sideBarContainerClasses} onClick={handleItemClick}>
@@ -85,7 +90,7 @@ const SideBarItem = ({
       {subCategoriesVisible && open && (
         <>
           <li
-            className="pa5 pointer t-body c-muted-2 ma0 list"
+            className={itemViewAllClasses}
             onClick={navigateToPage}
           >
             <FormattedMessage id="store/category-menu.all-category.title">
