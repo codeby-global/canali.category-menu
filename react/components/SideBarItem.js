@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react'
+import React, { useState, Fragment, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { FormattedMessage } from 'react-intl'
@@ -17,12 +17,15 @@ const SideBarItem = ({
   item,
 }) => {
   const runtime = useRuntime()
+  const { route } = runtime
   const [open, setOpen] = useState(false)
 
   const subCategoriesVisible =
     showSubcategories && children && children.length > 0 && treeLevel <= 1
-
-  const navigateToPage = () => {
+  const isSelected = useMemo(() => {
+    return route.canonicalPath.includes(item.slug)
+  }, [route, item])
+    const navigateToPage = () => {
     const [department, category, subcategory] = linkValues
     const params = { department }
 
@@ -53,7 +56,8 @@ const SideBarItem = ({
 
   const sideBarContainerClasses = classNames(
     styles.sidebarItemContainer,
-    'flex justify-between items-center pa5 pointer list ma0'
+    'flex justify-between items-center pa5 pointer list ma0',
+    isSelected ? styles.isSelected : null,
   )
   const sideBarItemTitleClasses = classNames('', {
     't-body lh-solid': treeLevel === 1,
