@@ -78,7 +78,7 @@ const CategoryMenu = ({
   const department = pathName ? pathName : ''
 
   const desktopClasses = classNames(
-    `${styles.container} w-100 bg-base dn flex-m`,
+    `${styles.container} w-100 bg-base flex-m`,
     {
       'justify-start': menuPosition === categoryMenuPosition.DISPLAY_LEFT.value,
       'justify-end': menuPosition === categoryMenuPosition.DISPLAY_RIGHT.value,

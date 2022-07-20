@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import { FormattedMessage } from 'react-intl'
 
 import { useRuntime } from 'vtex.render-runtime'
-import { IconMinus, IconPlus } from 'vtex.store-icons'
+import { IconMinus, IconPlus, IconCaret } from 'vtex.store-icons'
 
 import styles from '../categoryMenu.css'
 
@@ -83,7 +83,7 @@ const SideBarItem = ({
         <span className={sideBarItemTitleClasses}>{item.name}</span>
         {subCategoriesVisible && (
           <span className={sideBarSpanClasses}>
-            {open ? <IconMinus size={16} /> : <IconPlus size={16} />}
+            {open ? <IconCaret orientation="up" size={10} /> : <IconCaret orientation="down" size={10} />}
           </span>
         )}
       </li>
