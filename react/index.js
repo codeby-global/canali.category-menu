@@ -94,7 +94,7 @@ const CategoryMenu = ({
       >
         <ul className={`${styles.sidebarContent} pb7 list ma0 pa0`}>
             {visibleDepartments.map(department => (
-              <li key={department.id} className="list ma0 pa0">
+              <li key={department.id} className={`${styles.subItem} list ma0 pa0`}>
                 <SideBarItem
                   item={department}
                   linkValues={[department.slug]}

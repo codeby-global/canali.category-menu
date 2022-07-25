@@ -58,9 +58,10 @@ const SideBarItem = ({
     styles.sidebarItemContainer,
     'flex justify-between items-center pa5 pointer list ma0',
     isSelected ? styles.isSelected : null,
+    treeLevel === 1 ? styles.isTitle : null
   )
   const sideBarItemTitleClasses = classNames('', {
-    't-body lh-solid': treeLevel === 1,
+    'lh-solid': treeLevel === 1,
   })
 
   const sideBarSpanClasses = classNames(
@@ -98,7 +99,7 @@ const SideBarItem = ({
             </FormattedMessage>
           </li>
           {children.map(child => {
-            console.log("child: ", child, treeLevel)
+            //console.log("child: ", child, treeLevel)
             if(treeLevel > 1) return
             return (
               <li key={child.id} className="list ma0 pa0">
