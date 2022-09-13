@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { FormattedMessage } from 'react-intl'
 
-import { useRuntime } from 'vtex.render-runtime'
+import { useRuntime, Link } from 'vtex.render-runtime'
 import { IconMinus, IconPlus, IconCaret } from 'vtex.store-icons'
 
 import styles from '../categoryMenu.css'
@@ -20,23 +20,27 @@ const SideBarItem = ({
   const { route } = runtime
   const [open, setOpen] = useState(false)
 
+  const [department, category, subcategory] = linkValues
+  const params = { department }
+
+  if (category) params.category = category
+  if (subcategory) params.subcategory = subcategory
+
   const subCategoriesVisible =
     showSubcategories && children && children.length > 0 && treeLevel <= 1
   const isSelected = useMemo(() => {
     return route.canonicalPath.includes(item.slug)
   }, [route, item])
     const navigateToPage = () => {
-    const [department, category, subcategory] = linkValues
-    const params = { department }
-
-    if (category) params.category = category
-    if (subcategory) params.subcategory = subcategory
 
     const page = category
       ? subcategory
         ? 'store.search#subcategory'
         : 'store.search#category'
       : 'store.search#department'
+
+    console.log({page,
+      params,})
 
     runtime.navigate({
       page,
@@ -60,8 +64,9 @@ const SideBarItem = ({
     isSelected ? styles.isSelected : null,
     treeLevel === 1 ? styles.isTitle : null
   )
-  const sideBarItemTitleClasses = classNames('', {
+  const sideBarItemTitleClasses = classNames(styles.sidebarItemTitle, {
     'lh-solid': treeLevel === 1,
+    't-body':  treeLevel === 1
   })
 
   const sideBarSpanClasses = classNames(
@@ -81,11 +86,13 @@ const SideBarItem = ({
   return (
     <ul className={sideBarItemClasses}>
       <li className={sideBarContainerClasses} onClick={handleItemClick}>
-        <span className={sideBarItemTitleClasses}>{item.name}</span>
+        <Link className={sideBarItemTitleClasses} to={`/${params.department}/${params.category ?? ''}`}>
+          {item.name}
+        </Link>
         {subCategoriesVisible && (
-          <span className={sideBarSpanClasses}>
+          <a className={sideBarSpanClasses}>
             {open ? <IconCaret orientation="up" size={10} /> : <IconCaret orientation="down" size={10} />}
-          </span>
+          </a>
         )}
       </li>
       {subCategoriesVisible && open && (

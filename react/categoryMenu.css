@@ -58,3 +58,8 @@
 .menuContainer {}
 
 .sidebarItemContainer {}
+
+.sidebarItemTitle {
+  text-decoration: none;
+  color: unset;
+}
